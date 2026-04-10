@@ -2,13 +2,8 @@ import PageLayout from "@/components/layout/PageLayout";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import SectionHeading from "@/components/layout/SectionHeading";
 import LawyerCard from "@/components/cards/LawyerCard";
+import { lawyers } from "@/data/lawyers";
 import { Link } from "react-router-dom";
-
-const lawyers = [
-  { id: "1", name: "Victoria Hargrove", specialization: "Criminal Defense", image: "/placeholder.svg", slug: "victoria-hargrove" },
-  { id: "2", name: "James Whitfield", specialization: "Civil Litigation", image: "/placeholder.svg", slug: "james-whitfield" },
-  { id: "3", name: "Elena Marchetti", specialization: "Corporate & Arbitration", image: "/placeholder.svg", slug: "elena-marchetti" },
-];
 
 const LawyersPage = () => (
   <PageLayout>

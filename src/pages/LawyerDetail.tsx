@@ -2,38 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import PageLayout from "@/components/layout/PageLayout";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import CTASection from "@/components/sections/CTASection";
+import { getLawyerBySlug } from "@/data/lawyers";
 import { ArrowLeft } from "lucide-react";
-
-const lawyerData: Record<string, { name: string; specialization: string; bio: string; image: string; education: string; experience: string }> = {
-  "victoria-hargrove": {
-    name: "Victoria Hargrove",
-    specialization: "Criminal Defense",
-    bio: "Victoria has defended clients in over 500 criminal cases, earning a reputation for meticulous preparation and courtroom excellence.",
-    image: "/placeholder.svg",
-    education: "J.D., Harvard Law School",
-    experience: "15+ years in criminal defense",
-  },
-  "james-whitfield": {
-    name: "James Whitfield",
-    specialization: "Civil Litigation",
-    bio: "James specializes in complex civil disputes, bringing analytical rigor and strategic thinking to every case.",
-    image: "/placeholder.svg",
-    education: "J.D., Yale Law School",
-    experience: "12+ years in civil litigation",
-  },
-  "elena-marchetti": {
-    name: "Elena Marchetti",
-    specialization: "Corporate & Arbitration",
-    bio: "Elena advises multinational corporations on dispute resolution and has represented clients in international arbitration proceedings.",
-    image: "/placeholder.svg",
-    education: "LL.M., Columbia Law School",
-    experience: "10+ years in corporate law",
-  },
-};
 
 const LawyerDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const lawyer = slug ? lawyerData[slug] : null;
+  const lawyer = slug ? getLawyerBySlug(slug) : null;
 
   if (!lawyer) {
     return (
@@ -54,7 +28,7 @@ const LawyerDetail = () => {
         </Link>
         <div className="grid gap-8 md:grid-cols-[300px_1fr]">
           <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted">
-            <img src={lawyer.image} alt={lawyer.name} className="h-full w-full object-cover" />
+            <img src={lawyer.image} alt={lawyer.name} className="h-full w-full object-cover" loading="lazy" width={640} height={854} />
           </div>
           <div>
             <h1 className="text-3xl font-semibold">{lawyer.name}</h1>
