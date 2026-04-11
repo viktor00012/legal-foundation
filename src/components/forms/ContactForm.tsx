@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID;
+
 interface FormFields {
   name: string;
   phone: string;
@@ -18,6 +20,8 @@ export default function ContactForm() {
   const [fields, setFields] = useState<FormFields>({ name: '', phone: '', message: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   function validate(): FormErrors {
     const err: FormErrors = {};
@@ -33,7 +37,7 @@ export default function ContactForm() {
     return err;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const err = validate();
     if (Object.keys(err).length > 0) {
@@ -41,7 +45,42 @@ export default function ContactForm() {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSubmitError('');
+    setSubmitting(true);
+
+    if (!FORMSPREE_ID) {
+      // Formspree not configured — fail visibly so the issue is not silently hidden
+      setSubmitError('Форма не настроена. Укажите NEXT_PUBLIC_FORMSPREE_FORM_ID в .env.local');
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: fields.name,
+          phone: fields.phone,
+          message: fields.message,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msg = (data as { error?: string }).error || 'Ошибка отправки. Попробуйте позвонить нам напрямую.';
+        setSubmitError(msg);
+      }
+    } catch {
+      setSubmitError('Нет соединения. Проверьте интернет и попробуйте ещё раз.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -85,6 +124,7 @@ export default function ContactForm() {
             value={fields.name}
             onChange={handleChange}
             className={errors.name ? 'error' : ''}
+            disabled={submitting}
           />
           {errors.name && <div className="form-error">{errors.name}</div>}
         </div>
@@ -99,6 +139,7 @@ export default function ContactForm() {
             value={fields.phone}
             onChange={handleChange}
             className={errors.phone ? 'error' : ''}
+            disabled={submitting}
           />
           {errors.phone && <div className="form-error">{errors.phone}</div>}
         </div>
@@ -113,12 +154,24 @@ export default function ContactForm() {
             value={fields.message}
             onChange={handleChange}
             className={errors.message ? 'error' : ''}
+            disabled={submitting}
           />
           {errors.message && <div className="form-error">{errors.message}</div>}
         </div>
 
-        <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }}>
-          Отправить заявку
+        {submitError && (
+          <div className="form-error" style={{ marginBottom: '1rem' }}>
+            {submitError}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          className="btn btn--primary"
+          style={{ width: '100%', justifyContent: 'center', opacity: submitting ? 0.7 : 1 }}
+          disabled={submitting}
+        >
+          {submitting ? 'Отправка...' : 'Отправить заявку'}
         </button>
 
         <p className="form-privacy">

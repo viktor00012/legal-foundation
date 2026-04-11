@@ -53,9 +53,29 @@ export default function ContactSection({ contact, data }: ContactSectionProps) {
                 <div className="contact-info-value">{contact.hours}</div>
               </div>
             </div>
-            <div className="map-placeholder">
-              📍 {contact.address}
-            </div>
+            {contact.mapEmbedUrl ? (
+              <iframe
+                src={contact.mapEmbedUrl}
+                width="100%"
+                height="220"
+                style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Карта офиса"
+              />
+            ) : (
+              <iframe
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(contact.address)}&output=embed&z=16&hl=ru`}
+                width="100%"
+                height="220"
+                style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Карта офиса"
+              />
+            )}
           </div>
 
           {/* Form */}
