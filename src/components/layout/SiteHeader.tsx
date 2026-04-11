@@ -1,97 +1,118 @@
-import { Link } from "react-router-dom";
-import { Menu, Phone, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+'use client';
 
-interface NavItem {
-  label: string;
-  href: string;
-}
+import Link from 'next/link';
+import { useState } from 'react';
+import type { Contact } from '@/lib/cms';
 
 interface SiteHeaderProps {
-  firmName?: string;
-  phone?: string;
-  navigation?: NavItem[];
+  contact: Contact;
 }
 
-const defaultNavigation: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Lawyers", href: "/lawyers" },
-  { label: "Articles", href: "/articles" },
-  { label: "Contacts", href: "/contacts" },
+const navItems = [
+  { label: 'Главная', href: '/' },
+  { label: 'Услуги', href: '/services' },
+  { label: 'Адвокаты', href: '/lawyers' },
+  { label: 'Статьи', href: '/articles' },
+  { label: 'Контакты', href: '/contacts' },
 ];
 
-const SiteHeader = ({
-  firmName = "Lexington & Partners",
-  phone = "+1 (800) 555-0199",
-  navigation = defaultNavigation,
-}: SiteHeaderProps) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+export default function SiteHeader({ contact }: SiteHeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="container flex h-16 items-center justify-between md:h-20">
-        <Link to="/" className="text-xl font-semibold tracking-tight text-foreground">
-          {firmName}
-        </Link>
+    <header className="site-header">
+      <div className="container">
+        <div className="header-inner">
+          {/* Logo */}
+          <Link href="/" className="header-logo">
+            {contact.firmName.split(' ')[0]}{' '}
+            <span>{contact.firmName.split(' ').slice(1).join(' ')}</span>
+          </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-4 md:flex">
-          <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-sm font-medium text-foreground">
-            <Phone className="h-4 w-4" />
-            {phone}
-          </a>
-          <Button asChild>
-            <Link to="/contacts">Free Consultation</Link>
-          </Button>
-        </div>
-
-        <button
-          className="md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="border-t bg-background md:hidden">
-          <nav className="container flex flex-col gap-4 py-6">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className="text-sm font-medium text-muted-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
+          {/* Desktop Nav */}
+          <nav className="header-nav" aria-label="Основная навигация">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
             ))}
-            <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-sm font-medium text-foreground">
-              <Phone className="h-4 w-4" />
-              {phone}
-            </a>
-            <Button asChild className="w-full">
-              <Link to="/contacts">Free Consultation</Link>
-            </Button>
           </nav>
+
+          {/* Desktop Right */}
+          <div className="header-right">
+            <a
+              href={`tel:${contact.phone.replace(/\s/g, '')}`}
+              className="header-phone"
+              aria-label="Позвонить нам"
+            >
+              <PhoneIcon />
+              {contact.phone}
+            </a>
+            <Link href="/contacts" className="btn btn--primary">
+              Бесплатная консультация
+            </Link>
+          </div>
+
+          {/* Hamburger */}
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Открыть меню"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <XIcon /> : <MenuIcon />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="mobile-menu">
+          <div className="container">
+            <nav className="mobile-menu-inner">
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                  {item.label}
+                </Link>
+              ))}
+              <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="header-phone">
+                <PhoneIcon />
+                {contact.phone}
+              </a>
+              <Link href="/contacts" className="btn btn--primary" onClick={() => setMenuOpen(false)}>
+                Бесплатная консультация
+              </Link>
+            </nav>
+          </div>
         </div>
       )}
     </header>
   );
-};
+}
 
-export default SiteHeader;
+function PhoneIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.09a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}

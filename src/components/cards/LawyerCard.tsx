@@ -1,22 +1,28 @@
-import { cn } from "@/lib/utils";
+import Image from 'next/image';
+import type { Lawyer } from '@/lib/cms';
 
 interface LawyerCardProps {
-  name: string;
-  specialization: string;
-  image: string;
-  className?: string;
+  lawyer: Lawyer;
+  priority?: boolean;
 }
 
-const LawyerCard = ({ name, specialization, image, className }: LawyerCardProps) => (
-  <article className={cn("group overflow-hidden rounded-lg border bg-card transition-shadow hover:shadow-md", className)}>
-    <div className="aspect-[3/4] overflow-hidden bg-muted">
-      <img src={image} alt={name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+export default function LawyerCard({ lawyer, priority = false }: LawyerCardProps) {
+  return (
+    <div className="lawyer-card">
+      <div className="lawyer-card-photo">
+        <Image
+          src={lawyer.photo}
+          alt={lawyer.name}
+          width={400}
+          height={533}
+          priority={priority}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </div>
+      <div className="lawyer-card-body">
+        <div className="lawyer-card-name">{lawyer.name}</div>
+        <div className="lawyer-card-spec">{lawyer.specialization}</div>
+      </div>
     </div>
-    <div className="p-5">
-      <h3 className="font-semibold">{name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{specialization}</p>
-    </div>
-  </article>
-);
-
-export default LawyerCard;
+  );
+}

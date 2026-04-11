@@ -1,28 +1,31 @@
-import { Link } from "react-router-dom";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionHeading from "@/components/layout/SectionHeading";
-import LawyerCard from "@/components/cards/LawyerCard";
-import { lawyers } from "@/data/lawyers";
+import Link from 'next/link';
+import type { Lawyer } from '@/lib/cms';
+import LawyerCard from '@/components/cards/LawyerCard';
 
 interface LawyersSectionProps {
-  title?: string;
-  subtitle?: string;
+  lawyers: Lawyer[];
+  data: {
+    heading: string;
+    subheading: string;
+  };
 }
 
-const LawyersSection = ({
-  title = "Our Attorneys",
-  subtitle = "Meet the dedicated professionals behind every successful case.",
-}: LawyersSectionProps) => (
-  <SectionWrapper>
-    <SectionHeading title={title} subtitle={subtitle} />
-    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-      {lawyers.map((lawyer) => (
-        <Link key={lawyer.id} to={`/lawyers/${lawyer.slug}`}>
-          <LawyerCard name={lawyer.name} specialization={lawyer.specialization} image={lawyer.image} />
-        </Link>
-      ))}
-    </div>
-  </SectionWrapper>
-);
-
-export default LawyersSection;
+export default function LawyersSection({ lawyers, data }: LawyersSectionProps) {
+  return (
+    <section className="section">
+      <div className="container">
+        <div className="section-heading">
+          <h2>{data.heading}</h2>
+          <p>{data.subheading}</p>
+        </div>
+        <div className="grid-3">
+          {lawyers.map((lawyer, index) => (
+            <Link key={lawyer.id} href={`/lawyers/${lawyer.slug}`}>
+              <LawyerCard lawyer={lawyer} priority={index === 0} />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

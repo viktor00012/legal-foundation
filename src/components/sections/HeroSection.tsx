@@ -1,46 +1,64 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
+import Link from 'next/link';
+import type { Contact } from '@/lib/cms';
 
 interface HeroSectionProps {
-  title?: string;
-  subtitle?: string;
-  ctaText?: string;
-  ctaLink?: string;
-  phone?: string;
+  contact: Contact;
+  data: {
+    badge: string;
+    titleStart: string;
+    titleHighlight: string;
+    subtitle: string;
+    stats: { num: string; lbl: string }[];
+  };
 }
 
-const HeroSection = ({
-  title = "Protecting Your Rights with Confidence",
-  subtitle = "Experienced attorneys dedicated to delivering exceptional legal representation in criminal, civil, and corporate matters.",
-  ctaText = "Schedule Consultation",
-  ctaLink = "/contacts",
-  phone = "+1 (800) 555-0199",
-}: HeroSectionProps) => (
-  <section className="relative bg-primary py-24 md:py-36">
-    <div className="container relative z-10">
-      <div className="max-w-2xl animate-fade-in">
-        <h1 className="text-4xl font-semibold leading-tight text-primary-foreground md:text-5xl lg:text-6xl">
-          {title}
-        </h1>
-        <p className="mt-6 text-lg leading-relaxed text-primary-foreground/75 md:text-xl">
-          {subtitle}
-        </p>
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <Button variant="hero-outline" size="lg" asChild>
-            <Link to={ctaLink}>{ctaText}</Link>
-          </Button>
-          <Button variant="ghost" size="lg" className="text-primary-foreground hover:bg-primary-foreground/10" asChild>
-            <a href={`tel:${phone.replace(/\s/g, "")}`}>
-              <Phone className="mr-2 h-4 w-4" />
-              {phone}
+export default function HeroSection({ contact, data }: HeroSectionProps) {
+  return (
+    <section className="hero">
+      <div className="container">
+        <div className="hero-inner">
+          <div className="hero-badge">{data.badge}</div>
+
+          <h1>
+            {data.titleStart}
+            <span>{data.titleHighlight}</span>
+          </h1>
+
+          <p className="hero-subtitle">
+            {data.subtitle}
+          </p>
+
+          <div className="hero-actions">
+            <Link href="/contacts" className="btn btn--primary btn--lg">
+              Записаться на консультацию
+            </Link>
+            <a
+              href={`tel:${contact.phone.replace(/\s/g, '')}`}
+              className="btn btn--outline btn--lg"
+            >
+              <PhoneIcon />
+              {contact.phone}
             </a>
-          </Button>
+          </div>
+
+          <div className="hero-stats">
+            {data.stats.map((stat) => (
+              <div key={stat.lbl}>
+                <div className="hero-stat-num">{stat.num}</div>
+                <div className="hero-stat-lbl">{stat.lbl}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--hero-overlay)/0.4),transparent_70%)]" />
-  </section>
-);
+    </section>
+  );
+}
 
-export default HeroSection;
+function PhoneIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.09a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}

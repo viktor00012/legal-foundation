@@ -1,18 +1,21 @@
-import SiteHeader from "./SiteHeader";
-import SiteFooter from "./SiteFooter";
-import MobileStickyBar from "./MobileStickyBar";
+import SiteHeader from '@/components/layout/SiteHeader';
+import SiteFooter from '@/components/layout/SiteFooter';
+import FloatingButtons from '@/components/layout/FloatingButtons';
+import { getContact } from '@/lib/cms';
 
 interface PageLayoutProps {
   children: React.ReactNode;
 }
 
-const PageLayout = ({ children }: PageLayoutProps) => (
-  <div className="flex min-h-screen flex-col">
-    <SiteHeader />
-    <main className="flex-1">{children}</main>
-    <SiteFooter />
-    <MobileStickyBar />
-  </div>
-);
+export default function PageLayout({ children }: PageLayoutProps) {
+  const contact = getContact();
 
-export default PageLayout;
+  return (
+    <>
+      <SiteHeader contact={contact} />
+      <main>{children}</main>
+      <SiteFooter contact={contact} />
+      <FloatingButtons contact={contact} />
+    </>
+  );
+}

@@ -1,18 +1,17 @@
-import { cn } from "@/lib/utils";
+import type { Service } from '@/lib/cms';
+import { getServiceIcon } from '@/lib/icons';
 
 interface ServiceCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  className?: string;
+  service: Service;
 }
 
-const ServiceCard = ({ title, description, icon, className }: ServiceCardProps) => (
-  <article className={cn("group rounded-lg border bg-card p-8 transition-shadow hover:shadow-md", className)}>
-    <div className="mb-4 text-primary">{icon}</div>
-    <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-    <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
-  </article>
-);
-
-export default ServiceCard;
+export default function ServiceCard({ service }: ServiceCardProps) {
+  return (
+    <div className="card">
+      <div className="card-icon">{getServiceIcon(service.icon)}</div>
+      <div className="card-category">{service.category}</div>
+      <div className="card-title">{service.title}</div>
+      <p className="card-desc">{service.description}</p>
+    </div>
+  );
+}
