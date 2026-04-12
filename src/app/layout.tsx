@@ -17,6 +17,11 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: 'ru_RU',
       siteName: contact.firmName,
     },
+    icons: {
+      icon: [
+        { url: '/logo.png', type: 'image/x-icon' },
+      ],
+    },
   };
 }
 
