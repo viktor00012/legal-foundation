@@ -11,8 +11,11 @@ export const contactType = defineType({
     defineField({ name: 'email', title: 'Email', type: 'string' }),
     defineField({ name: 'address', title: 'Адрес', type: 'string' }),
     defineField({ name: 'hours', title: 'Часы работы', type: 'string' }),
-    defineField({ name: 'messengerUrl', title: 'Ссылка WhatsApp / Telegram (основная)', type: 'string' }),
-    defineField({ name: 'mapEmbedUrl', title: 'Ссылка на карту (iframe src)', type: 'string' }),
+    defineField({ name: 'messengerUrl', title: 'Справочный WhatsApp (ссылка)', type: 'string' }),
+    defineField({ name: 'telegramUrl', title: 'Telegram (ссылка)', type: 'string' }),
+    defineField({ name: 'maxUrl', title: 'Чат MAX (ссылка)', type: 'string' }),
+    defineField({ name: 'mapEmbedUrl', title: 'Ссылка на Яндекс.Карты (iframe src)', type: 'string' }),
+
     defineField({
       name: 'seo',
       title: 'SEO (глобальный)',

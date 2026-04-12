@@ -1,5 +1,4 @@
 import type { Contact } from '@/lib/cms';
-import ContactForm from '@/components/forms/ContactForm';
 
 interface ContactSectionProps {
   contact: Contact;
@@ -57,7 +56,7 @@ export default function ContactSection({ contact, data }: ContactSectionProps) {
               <iframe
                 src={contact.mapEmbedUrl}
                 width="100%"
-                height="220"
+                height="300"
                 style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
                 allowFullScreen
                 loading="lazy"
@@ -66,25 +65,63 @@ export default function ContactSection({ contact, data }: ContactSectionProps) {
               />
             ) : (
               <iframe
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(contact.address)}&output=embed&z=16&hl=ru`}
+                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(contact.address)}&z=16`}
                 width="100%"
-                height="220"
+                height="300"
                 style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
                 allowFullScreen
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
                 title="Карта офиса"
               />
             )}
+
           </div>
 
-          {/* Form */}
-          <ContactForm />
+          {/* Messenger Buttons */}
+          <div style={{ marginTop: '2rem' }}>
+            <div className="contact-info-label" style={{ marginBottom: '1rem' }}>Написать нам</div>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              {contact.messengerUrl && (
+                <a 
+                  href={contact.messengerUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn--primary"
+                  style={{ background: '#25d366', borderColor: '#25d366', color: '#fff' }}
+                >
+                  WhatsApp
+                </a>
+              )}
+              {contact.telegramUrl && (
+                <a 
+                  href={contact.telegramUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn--primary"
+                  style={{ background: '#0088cc', borderColor: '#0088cc', color: '#fff' }}
+                >
+                  Telegram
+                </a>
+              )}
+              {contact.maxUrl && (
+                <a 
+                  href={contact.maxUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn--primary"
+                  style={{ background: '#1a365d', borderColor: '#1a365d', color: '#fff' }}
+                >
+                  MAX
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
 
 function MapPinIcon() {
   return (

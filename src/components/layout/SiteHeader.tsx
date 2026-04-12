@@ -1,8 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import type { Contact } from '@/lib/cms';
+
+
 
 interface SiteHeaderProps {
   contact: Contact;
@@ -10,7 +13,15 @@ interface SiteHeaderProps {
 
 const navItems = [
   { label: 'Главная', href: '/' },
-  { label: 'Услуги', href: '/services' },
+  { 
+    label: 'Услуги', 
+    href: '/services',
+    subItems: [
+      { label: 'Уголовные дела', href: '/services/ugolovnyye-dela' },
+      { label: 'Гражданские дела', href: '/services/grazhdanskiye-dela' },
+      { label: 'Арбитражные споры', href: '/services/arbitrazhnyye-spory' },
+    ]
+  },
   { label: 'Адвокаты', href: '/lawyers' },
   { label: 'Статьи', href: '/articles' },
   { label: 'Контакты', href: '/contacts' },
@@ -23,24 +34,37 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
     <header className="site-header">
       <div className="container">
         <div className="header-inner">
+
           {/* Logo */}
           <Link href="/" className="header-logo">
-            <img
+            <Image
               src="/logo.png"
               alt={contact.firmName}
-              width={150}
-              height={150}
-              style={{ objectFit: 'contain' }}
-              onError={(e) => (e.currentTarget.style.display = 'none')}
+              width={160}
+              height={50}
+              priority
+              style={{ objectFit: 'contain', width: 'auto', height: 'auto' }}
             />
           </Link>
+
 
           {/* Desktop Nav */}
           <nav className="header-nav" aria-label="Основная навигация">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
+              <div key={item.href} className="nav-item-wrapper">
+                <Link href={item.href}>
+                  {item.label}
+                </Link>
+                {item.subItems && (
+                  <div className="nav-dropdown">
+                    {item.subItems.map((sub) => (
+                      <Link key={sub.href} href={sub.href}>
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -70,16 +94,26 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
           </button>
         </div>
       </div>
-
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="mobile-menu">
           <div className="container">
             <nav className="mobile-menu-inner">
               {navItems.map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                  {item.label}
-                </Link>
+                <div key={item.href}>
+                  <Link href={item.href} onClick={() => setMenuOpen(false)}>
+                    {item.label}
+                  </Link>
+                  {item.subItems && (
+                    <div style={{ paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
+                      {item.subItems.map((sub) => (
+                        <Link key={sub.href} href={sub.href} onClick={() => setMenuOpen(false)} style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
+                          • {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="header-phone">
                 <PhoneIcon />
@@ -92,6 +126,7 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
           </div>
         </div>
       )}
+
     </header>
   );
 }

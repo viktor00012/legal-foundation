@@ -57,7 +57,10 @@ export interface Contact {
   address: string;
   hours: string;
   messengerUrl: string;
+  telegramUrl?: string;
+  maxUrl?: string;
   description: string;
+
   mapEmbedUrl: string;
   seo?: {
     title?: string;

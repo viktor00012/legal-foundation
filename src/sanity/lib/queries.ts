@@ -92,9 +92,12 @@ export const CONTACT_QUERY = `*[_type == "contact"][0] {
   address,
   hours,
   messengerUrl,
+  telegramUrl,
+  maxUrl,
   mapEmbedUrl,
   seo
-}`;
+}
+`;
 
 // ─── Home ─────────────────────────────────────────────────────
 export const HOME_QUERY = `*[_type == "home"][0] {

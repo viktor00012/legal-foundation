@@ -4,6 +4,7 @@ export const revalidate = 300;
 import Link from 'next/link';
 import PageLayout from '@/components/layout/PageLayout';
 import { getArticles } from '@/lib/cms';
+import CTASection from '@/components/sections/CTASection';
 
 export const metadata: Metadata = {
   title: 'Статьи и публикации',
@@ -57,6 +58,7 @@ export default async function ArticlesPage() {
           </div>
         </div>
       </section>
+      <CTASection />
     </PageLayout>
   );
 }

@@ -216,7 +216,25 @@ p { line-height: 1.75; }
   color: var(--color-accent);
 }
 
+.header-logo img {
+  height: 50px;
+  width: auto;
+  transition: height 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .header-logo img {
+    height: 30px;
+  }
+  .header-inner {
+    height: 70px;
+  }
+}
+
+
+
 .header-nav {
+
   display: flex;
   align-items: center;
   gap: 1.5rem;
