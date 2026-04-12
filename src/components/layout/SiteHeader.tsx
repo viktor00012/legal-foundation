@@ -13,8 +13,8 @@ interface SiteHeaderProps {
 
 const navItems = [
   { label: 'Главная', href: '/' },
-  { 
-    label: 'Услуги', 
+  {
+    label: 'Услуги',
     href: '/services',
     subItems: [
       { label: 'Уголовные дела', href: '/services/ugolovnyye-dela' },
@@ -40,10 +40,7 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
             <Image
               src="/logo.png"
               alt={contact.firmName}
-              width={160}
-              height={50}
               priority
-              style={{ objectFit: 'contain', width: 'auto', height: 'auto' }}
             />
           </Link>
 
