@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   description: 'Полный спектр юридических услуг: уголовная защита, гражданские споры, арбитраж, корпоративное право.',
 };
 
-export default function ServicesPage() {
-  const services = getServices();
+export default async function ServicesPage() {
+  const services = await getServices();
 
   return (
     <PageLayout>

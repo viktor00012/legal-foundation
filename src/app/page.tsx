@@ -9,17 +9,20 @@ import CTASection from '@/components/sections/CTASection';
 import ContactSection from '@/components/sections/ContactSection';
 import { getContact, getLawyers, getServices, getHome, getArticles } from '@/lib/cms';
 
-export const metadata: Metadata = {
-  title: 'Правовой Фонд — Профессиональная юридическая помощь в Москве',
-  description: 'Опытные адвокаты для защиты ваших прав. Уголовная защита, гражданские споры, корпоративное право, арбитраж. Более 20 лет на рынке юридических услуг.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const contact = await getContact();
+  return {
+    title: `${contact.firmName} — Опытные адвокаты и юристы в Москве`,
+    description: contact.description || 'Квалифицированная юридическая помощь. Уголовное право, гражданские споры, арбитраж и банкротство.',
+  };
+}
 
-export default function HomePage() {
-  const contact = getContact();
-  const lawyers = getLawyers();
-  const services = getServices();
-  const articles = getArticles();
-  const homeData = getHome();
+export default async function HomePage() {
+  const contact = await getContact();
+  const lawyers = await getLawyers();
+  const services = await getServices();
+  const articles = await getArticles();
+  const homeData = await getHome();
 
   return (
     <PageLayout>

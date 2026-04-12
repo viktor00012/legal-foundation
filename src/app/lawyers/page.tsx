@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   description: 'Познакомьтесь с командой профессиональных юристов и адвокатов нашей фирмы.',
 };
 
-export default function LawyersPage() {
-  const lawyers = getLawyers();
+export default async function LawyersPage() {
+  const lawyers = await getLawyers();
 
   return (
     <PageLayout>

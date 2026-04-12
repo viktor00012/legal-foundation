@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description: 'Свяжитесь с нами для записи на юридическую консультацию.',
 };
 
-export default function ContactsPage() {
-  const contact = getContact();
+export default async function ContactsPage() {
+  const contact = await getContact();
 
   return (
     <PageLayout>

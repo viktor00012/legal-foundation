@@ -5,7 +5,7 @@
 
 // ─── Lawyers ─────────────────────────────────────────────────
 export const LAWYERS_QUERY = `*[_type == "lawyer"] | order(order asc, _createdAt asc) {
-  _id,
+  "id": _id,
   name,
   "slug": slug.current,
   "photo": photo.asset->url,
@@ -17,7 +17,7 @@ export const LAWYERS_QUERY = `*[_type == "lawyer"] | order(order asc, _createdAt
 }`;
 
 export const LAWYER_BY_SLUG_QUERY = `*[_type == "lawyer" && slug.current == $slug][0] {
-  _id,
+  "id": _id,
   name,
   "slug": slug.current,
   "photo": photo.asset->url,
@@ -29,7 +29,7 @@ export const LAWYER_BY_SLUG_QUERY = `*[_type == "lawyer" && slug.current == $slu
 
 // ─── Services ─────────────────────────────────────────────────
 export const SERVICES_QUERY = `*[_type == "service"] | order(order asc, _createdAt asc) {
-  _id,
+  "id": _id,
   title,
   "slug": slug.current,
   category,
@@ -40,7 +40,7 @@ export const SERVICES_QUERY = `*[_type == "service"] | order(order asc, _created
 }`;
 
 export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $slug][0] {
-  _id,
+  "id": _id,
   title,
   "slug": slug.current,
   category,
@@ -52,7 +52,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $s
 
 // ─── Articles ─────────────────────────────────────────────────
 export const ARTICLES_QUERY = `*[_type == "article"] | order(date desc) {
-  _id,
+  "id": _id,
   title,
   "slug": slug.current,
   date,
@@ -60,7 +60,7 @@ export const ARTICLES_QUERY = `*[_type == "article"] | order(date desc) {
 }`;
 
 export const ARTICLE_BY_SLUG_QUERY = `*[_type == "article" && slug.current == $slug][0] {
-  _id,
+  "id": _id,
   title,
   "slug": slug.current,
   date,

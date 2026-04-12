@@ -10,13 +10,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const articles = getArticles();
+  const articles = await getArticles();
   return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
   if (!article) return { title: 'Статья не найдена' };
   return {
     title: article.title,
@@ -34,11 +34,14 @@ function formatDate(dateStr: string): string {
 
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) notFound();
 
-  const paragraphs = article.content.split('\n\n').filter(Boolean);
+  // Basic handling for both JSON (string) and potential Sanity (array/object) content
+  const paragraphs = typeof article.content === 'string' 
+    ? article.content.split('\n\n').filter(Boolean)
+    : ["(Контент в формате Sanity Portable Text)"];
 
   return (
     <PageLayout>

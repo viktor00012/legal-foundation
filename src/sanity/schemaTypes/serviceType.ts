@@ -23,7 +23,11 @@ export const serviceType = defineType({
           { title: 'Щит (уголовная защита)', value: 'shield' },
           { title: 'Весы (гражданское право)', value: 'scale' },
           { title: 'Рукопожатие (корпоративное)', value: 'handshake' },
-          { title: 'Портфель (общее)', value: 'briefcase' },
+          { title: 'Портфель (бизнес-право)', value: 'briefcase' },
+          { title: 'Машина (автоюрист)', value: 'truck' },
+          { title: 'Здание (жилищные вопросы)', value: 'home' },
+          { title: 'Сердце (семейные дела)', value: 'users' },
+          { title: 'Банк (банкротство)', value: 'landmark' },
         ]
       }
     }),

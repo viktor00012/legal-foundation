@@ -16,8 +16,8 @@ function formatDate(dateStr: string): string {
   });
 }
 
-export default function ArticlesPage() {
-  const articles = getArticles();
+export default async function ArticlesPage() {
+  const articles = await getArticles();
 
   return (
     <PageLayout>

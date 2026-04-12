@@ -2,7 +2,7 @@ interface AdvantagesSectionProps {
   data: {
     heading: string;
     subheading: string;
-    items: { id: string; icon: string; title: string; desc: string }[];
+    items: { id?: string; icon: string; title: string; desc: string }[];
   };
 }
 
@@ -25,8 +25,8 @@ export default function AdvantagesSection({ data }: AdvantagesSectionProps) {
           <p>{data.subheading}</p>
         </div>
         <div className="grid-4">
-          {data.items.map((item) => (
-            <div key={item.id} className="advantage-item">
+          {data.items.map((item, idx) => (
+            <div key={item.id || idx} className="advantage-item">
               <div className="advantage-icon">{getIcon(item.icon)}</div>
               <h3 className="advantage-title">{item.title}</h3>
               <p className="advantage-desc">{item.desc}</p>

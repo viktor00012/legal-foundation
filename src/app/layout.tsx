@@ -1,18 +1,24 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Правовой Фонд — Профессиональная юридическая помощь',
-    template: '%s | Правовой Фонд',
-  },
-  description: 'Профессиональные юридические услуги с более чем 20-летним опытом. Уголовная защита, гражданские споры, корпоративное право, арбитраж.',
-  keywords: ['юридические услуги', 'адвокат', 'юрист', 'правовая помощь', 'Москва'],
-  openGraph: {
-    type: 'website',
-    locale: 'ru_RU',
-  },
-};
+import { getContact } from '@/lib/cms';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const contact = await getContact();
+  return {
+    title: {
+      default: `${contact.firmName} — Профессиональная юридическая помощь в Москве`,
+      template: `%s | ${contact.firmName}`,
+    },
+    description: contact.description || 'Юридическая компания с многолетним практическим опытом. Уголовная защита, арбитраж, гражданские дела, банкротство.',
+    keywords: ['юридические услуги', 'адвокат', 'юрист', contact.firmName, 'правовая помощь', 'Москва'],
+    openGraph: {
+      type: 'website',
+      locale: 'ru_RU',
+      siteName: contact.firmName,
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,8 +31,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="antialiased">
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LegalService',
+              'name': 'Кремль-юрист',
+              'address': {
+                '@type': 'PostalAddress',
+                'streetAddress': 'Богородский вал, д.6 корп.1 подъезд 4 офис 1',
+                'addressLocality': 'Москва',
+                'addressRegion': 'RU',
+              },
+              'telephone': '+7 (495) 228-59-69',
+              'email': 'kremlinyuristy@yandex.ru',
+              'url': 'https://urlavina.ru/',
+              'founder': 'Вожников С.В.',
+              'foundingDate': '2017',
+              'priceRange': '$$',
+            }),
+          }}
+        />
       </body>
     </html>
   );

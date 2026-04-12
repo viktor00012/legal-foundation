@@ -11,13 +11,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const lawyers = getLawyers();
+  const lawyers = await getLawyers();
   return lawyers.map((l) => ({ slug: l.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const lawyer = getLawyerBySlug(slug);
+  const lawyer = await getLawyerBySlug(slug);
   if (!lawyer) return { title: 'Адвокат не найден' };
   return {
     title: `${lawyer.name} — ${lawyer.specialization}`,
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LawyerDetailPage({ params }: Props) {
   const { slug } = await params;
-  const lawyer = getLawyerBySlug(slug);
+  const lawyer = await getLawyerBySlug(slug);
 
   if (!lawyer) notFound();
 
