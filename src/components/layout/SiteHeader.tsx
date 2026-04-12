@@ -25,11 +25,11 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
         <div className="header-inner">
           {/* Logo */}
           <Link href="/" className="header-logo">
-            <img 
-              src="/logo.png" 
-              alt={contact.firmName} 
-              width={100} 
-              height={100} 
+            <img
+              src="/logo.png"
+              alt={contact.firmName}
+              width={150}
+              height={150}
               style={{ objectFit: 'contain' }}
               onError={(e) => (e.currentTarget.style.display = 'none')}
             />
