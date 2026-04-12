@@ -7,8 +7,8 @@ interface PageLayoutProps {
   children: React.ReactNode;
 }
 
-export default function PageLayout({ children }: PageLayoutProps) {
-  const contact = getContact();
+export default async function PageLayout({ children }: PageLayoutProps) {
+  const contact = await getContact();
 
   return (
     <>

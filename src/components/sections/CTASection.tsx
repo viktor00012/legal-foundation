@@ -10,8 +10,8 @@ interface CTASectionProps {
   };
 }
 
-export default function CTASection({ data }: CTASectionProps) {
-  const ctaData = data || getHome().cta;
+export default async function CTASection({ data }: CTASectionProps) {
+  const ctaData = data || (await getHome()).cta;
 
   return (
     <section className="cta-section">
