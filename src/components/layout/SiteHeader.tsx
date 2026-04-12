@@ -24,28 +24,15 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
       <div className="container">
         <div className="header-inner">
           {/* Logo */}
-          <Link href="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontSize: '1.75rem' }}>
+          <Link href="/" className="header-logo">
             <img 
               src="/logo.png" 
               alt={contact.firmName} 
-              width={64} 
-              height={64} 
+              width={100} 
+              height={100} 
               style={{ objectFit: 'contain' }}
               onError={(e) => (e.currentTarget.style.display = 'none')}
             />
-            <span>
-              {contact.firmName.includes('-') && !contact.firmName.includes(' ') ? (
-                <>
-                  {contact.firmName.split('-')[0]}
-                  <span style={{ color: 'var(--color-primary)' }}>-{contact.firmName.split('-')[1]}</span>
-                </>
-              ) : (
-                <>
-                  {contact.firmName.split(' ')[0]}{' '}
-                  <span style={{ color: 'var(--color-primary)' }}>{contact.firmName.split(' ').slice(1).join(' ')}</span>
-                </>
-              )}
-            </span>
           </Link>
 
           {/* Desktop Nav */}
