@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PageLayout from '@/components/layout/PageLayout';
 import CTASection from '@/components/sections/CTASection';
+import PortableTextContent from '@/components/PortableTextContent';
 import { getArticleBySlug, getArticles } from '@/lib/cms';
 
 interface Props {
@@ -38,10 +39,9 @@ export default async function ArticleDetailPage({ params }: Props) {
 
   if (!article) notFound();
 
-  // Basic handling for both JSON (string) and potential Sanity (array/object) content
-  const paragraphs = typeof article.content === 'string' 
-    ? article.content.split('\n\n').filter(Boolean)
-    : ["(Контент в формате Sanity Portable Text)"];
+  // article.content is a Portable Text array from Sanity.
+  // If it's a plain string (legacy JSON fallback), split into paragraphs.
+  const isPortableText = Array.isArray(article.content);
 
   return (
     <PageLayout>
@@ -55,7 +55,9 @@ export default async function ArticleDetailPage({ params }: Props) {
             <span>{article.title}</span>
           </nav>
           <h1>{article.title}</h1>
-          <p><time>{formatDate(article.date)}</time></p>
+          {article.date && (
+            <p><time>{formatDate(article.date)}</time></p>
+          )}
         </div>
       </section>
 
@@ -66,9 +68,15 @@ export default async function ArticleDetailPage({ params }: Props) {
           </Link>
 
           <div className="article-body">
-            {paragraphs.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
+            {isPortableText ? (
+              <PortableTextContent value={article.content} />
+            ) : typeof article.content === 'string' && article.content.trim() ? (
+              article.content.split('\n\n').filter(Boolean).map((para: string, i: number) => (
+                <p key={i}>{para}</p>
+              ))
+            ) : article.excerpt ? (
+              <p>{article.excerpt}</p>
+            ) : null}
           </div>
         </div>
       </section>

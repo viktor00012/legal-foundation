@@ -65,7 +65,14 @@ export const ARTICLE_BY_SLUG_QUERY = `*[_type == "article" && slug.current == $s
   "slug": slug.current,
   date,
   excerpt,
-  content
+  content[] {
+    ...,
+    _type == "image" => {
+      ...,
+      "url": asset->url,
+      "alt": alt
+    }
+  }
 }`;
 
 // ─── Contact ──────────────────────────────────────────────────
