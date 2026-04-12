@@ -24,12 +24,12 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
       <div className="container">
         <div className="header-inner">
           {/* Logo */}
-          <Link href="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Link href="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontSize: '1.75rem' }}>
             <img 
               src="/logo.png" 
               alt={contact.firmName} 
-              width={40} 
-              height={40} 
+              width={64} 
+              height={64} 
               style={{ objectFit: 'contain' }}
               onError={(e) => (e.currentTarget.style.display = 'none')}
             />

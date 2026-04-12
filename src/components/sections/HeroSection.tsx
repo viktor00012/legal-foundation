@@ -17,28 +17,30 @@ export default function HeroSection({ contact, data }: HeroSectionProps) {
     <section className="hero">
       <div className="container">
         <div className="hero-inner">
-          <div className="hero-badge">{data.badge}</div>
+          <div className="hero-content">
+            <div className="hero-badge">{data.badge}</div>
 
-          <h1>
-            {data.titleStart}
-            <span>{data.titleHighlight}</span>
-          </h1>
+            <h1>
+              {data.titleStart}
+              <span>{data.titleHighlight}</span>
+            </h1>
 
-          <p className="hero-subtitle">
-            {data.subtitle}
-          </p>
+            <p className="hero-subtitle">
+              {data.subtitle}
+            </p>
 
-          <div className="hero-actions">
-            <Link href="/contacts" className="btn btn--primary btn--lg">
-              Записаться на консультацию
-            </Link>
-            <a
-              href={`tel:${contact.phone.replace(/\s/g, '')}`}
-              className="btn btn--outline btn--lg"
-            >
-              <PhoneIcon />
-              {contact.phone}
-            </a>
+            <div className="hero-actions">
+              <Link href="/contacts" className="btn btn--primary btn--lg">
+                Записаться на консультацию
+              </Link>
+              <a
+                href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                className="btn btn--outline btn--lg"
+              >
+                <PhoneIcon />
+                {contact.phone}
+              </a>
+            </div>
           </div>
 
           <div className="hero-stats">

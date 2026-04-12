@@ -36,16 +36,22 @@ export default async function ArticlesPage() {
       <section className="section">
         <div className="container">
           <div className="grid-3">
-            {articles.map((article) => (
-              <article key={article.slug} className="article-card">
-                <time className="article-date">{formatDate(article.date)}</time>
-                <h2 className="article-title">{article.title}</h2>
-                <p className="article-excerpt">{article.excerpt}</p>
-                <Link href={`/articles/${article.slug}`} className="article-link">
-                  Читать далее →
-                </Link>
-              </article>
-            ))}
+            {articles.length > 0 ? (
+              articles.map((article) => (
+                <article key={article.slug} className="article-card">
+                  <time className="article-date">{formatDate(article.date)}</time>
+                  <h2 className="article-title">{article.title}</h2>
+                  <p className="article-excerpt">{article.excerpt}</p>
+                  <Link href={`/articles/${article.slug}`} className="article-link">
+                    Читать далее →
+                  </Link>
+                </article>
+              ))
+            ) : (
+              <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '1.25rem', paddingBlock: '4rem' }}>
+                В данный момент статей нет. Пожалуйста, возвращайтесь позже.
+              </p>
+            )}
           </div>
         </div>
       </section>
