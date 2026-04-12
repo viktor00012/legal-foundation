@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Analytics } from "@vercel/analytics/next"
+
 
 import { getContact } from '@/lib/cms';
 
@@ -69,6 +71,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
              __html: JSON.stringify(jsonLd),
           }}
         />
+        <Analytics />
+
       </body>
     </html>
   );
