@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+export const revalidate = 300;
+
 import PageLayout from '@/components/layout/PageLayout';
 import ServiceCard from '@/components/cards/ServiceCard';
 import CTASection from '@/components/sections/CTASection';

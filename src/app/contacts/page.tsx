@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+export const revalidate = 300;
+
 import Link from 'next/link';
 import PageLayout from '@/components/layout/PageLayout';
 import ContactSection from '@/components/sections/ContactSection';

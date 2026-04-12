@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+export const revalidate = 300;
+
 import './globals.css';
 import { Analytics } from "@vercel/analytics/next"
 
