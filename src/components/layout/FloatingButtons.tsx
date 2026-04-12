@@ -18,12 +18,12 @@ export default function FloatingButtons({ contact }: FloatingButtonsProps) {
           <PhoneIcon />
         </a>
         <a
-          href={contact.messengerUrl}
+          href={contact.maxUrl || contact.messengerUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="float-btn float-btn--msg"
-          title="Написать в WhatsApp"
-          aria-label="Написать в WhatsApp"
+          title="Чат MAX"
+          aria-label="Написать в Чат MAX"
         >
           <MsgIcon />
         </a>
@@ -36,9 +36,9 @@ export default function FloatingButtons({ contact }: FloatingButtonsProps) {
           Позвонить
         </a>
         <div className="divider" />
-        <a href={contact.messengerUrl} target="_blank" rel="noopener noreferrer">
+        <a href={contact.maxUrl || contact.messengerUrl} target="_blank" rel="noopener noreferrer">
           <MsgIcon />
-          Написать
+          Чат MAX
         </a>
       </div>
     </>
