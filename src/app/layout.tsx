@@ -36,6 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+import CookieConsent from '@/components/layout/CookieConsent';
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const contact = await getContact();
   
@@ -74,10 +76,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
              __html: JSON.stringify(jsonLd),
           }}
         />
+        <CookieConsent />
         <Analytics />
 
       </body>
     </html>
   );
 }
+
 

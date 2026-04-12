@@ -40,7 +40,10 @@ export default function SiteHeader({ contact }: SiteHeaderProps) {
             <Image
               src="/logo.png"
               alt={contact.firmName}
+              width={100}
+              height={100}
               priority
+              className="logo-img"
             />
           </Link>
 

@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import type { Contact } from '@/lib/cms';
+import QRModal from '@/components/QRModal';
 
 interface ContactSectionProps {
   contact: Contact;
@@ -64,23 +66,14 @@ export default function ContactSection({ contact }: ContactSectionProps) {
                 <p>Мы ответим в течение 15 минут в рабочее время</p>
               </div>
               <div className="social-connect-btns">
-                {contact.messengerUrl && (
-                  <a href={contact.messengerUrl} target="_blank" rel="noopener noreferrer" className="social-btn whatsapp">
-                    <WhatsAppIcon />
-                    WhatsApp
-                  </a>
-                )}
+                {/* WhatsApp removed by client request */}
                 {contact.telegramUrl && (
                   <a href={contact.telegramUrl} target="_blank" rel="noopener noreferrer" className="social-btn telegram">
                     <TelegramIcon />
                     Telegram
                   </a>
                 )}
-                {contact.maxUrl && (
-                  <a href={contact.maxUrl} target="_blank" rel="noopener noreferrer" className="social-btn max-chat">
-                    Чат MAX
-                  </a>
-                )}
+                <QRModal qrSrc="/max.PNG" triggerLabel="Чат MAX" />
               </div>
             </div>
           </div>
@@ -148,14 +141,6 @@ function ClockIcon() {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
-    </svg>
-  );
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.031 6.062c-3.414 0-6.141 2.734-6.141 6.141 0 1.094.281 2.156.828 3.094l-.875 3.203 3.266-.859c.906.484 1.922.75 2.922.75 3.414 0 6.141-2.734 6.141-6.141 0-3.407-2.727-6.141-6.141-6.141zm3.609 8.656c-.156.438-.906.844-1.25.891-.344.047-.781.078-1.219-.062-.266-.078-.594-.187-1-.359-1.734-.734-2.859-2.5-2.938-2.609-.078-.109-.641-.859-.641-1.641 0-.781.406-1.172.547-1.328.141-.156.313-.187.406-.187h.313c.094 0 .219.016.313.234.109.266.375.922.406 1.016.031.094.047.203-.016.313-.063.125-.125.203-.234.328-.109.125-.219.234-.313.344-.109.125-.234.25-.094.484.141.234.625 1.031 1.344 1.672.922.812 1.703 1.062 1.938 1.187.234.125.375.109.516-.047.141-.156.594-.687.75-.922.156-.234.313-.187.516-.109.203.078 1.281.609 1.5.719.219.109.359.172.406.25.047.078.047.453-.109.891z"/>
     </svg>
   );
 }
