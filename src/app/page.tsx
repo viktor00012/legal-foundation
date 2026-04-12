@@ -34,7 +34,7 @@ export default async function HomePage() {
       <LawyersSection lawyers={lawyers} data={homeData.lawyers} />
       <ArticlesSection articles={articles} />
       <CTASection data={homeData.cta} />
-      <ContactSection contact={contact} data={homeData.contact} />
+      <ContactSection contact={contact} />
     </PageLayout>
   );
 }
