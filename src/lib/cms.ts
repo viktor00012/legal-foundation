@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import { client } from '@/sanity/lib/client';
+import type { PortableTextBlock } from '@portabletext/types';
+
 import { 
   LAWYERS_QUERY, 
   LAWYER_BY_SLUG_QUERY, 
@@ -15,8 +17,9 @@ import {
 export interface Lawyer {
   id: string;
   name: string;
-  photo: string;
+  photo: string | null;
   specialization: string;
+
   description: string;
   education: string;
   experience: string;
@@ -29,8 +32,10 @@ export interface Service {
   category: string;
   slug: string;
   description: string;
-  content: any;
+  content: PortableTextBlock[] | string;
   details: string[];
+
+
   icon: string;
 }
 
@@ -40,8 +45,10 @@ export interface Article {
   slug: string;
   excerpt: string;
   date: string;
-  content: any;
+  content: PortableTextBlock[] | string;
 }
+
+
 
 export interface Contact {
   firmName: string;
@@ -52,7 +59,12 @@ export interface Contact {
   messengerUrl: string;
   description: string;
   mapEmbedUrl: string;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
 }
+
 
 export interface HomeData {
   hero: {

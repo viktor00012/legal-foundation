@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import type { Lawyer } from '@/lib/cms';
+import { UserIcon } from '@/lib/icons';
+
 
 interface LawyerCardProps {
   lawyer: Lawyer;
@@ -10,15 +12,30 @@ export default function LawyerCard({ lawyer, priority = false }: LawyerCardProps
   return (
     <div className="lawyer-card">
       <div className="lawyer-card-photo">
-        <Image
-          src={lawyer.photo}
-          alt={lawyer.name}
-          width={400}
-          height={533}
-          priority={priority}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+        {lawyer.photo ? (
+          <Image
+            src={lawyer.photo}
+            alt={lawyer.name}
+            width={400}
+            height={533}
+            priority={priority}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <div style={{ 
+            width: '100%', 
+            height: '100%', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            backgroundColor: 'var(--color-bg-alt, #f9fafb)',
+            color: 'var(--color-text-muted)'
+          }}>
+            <UserIcon />
+          </div>
+        )}
       </div>
+
       <div className="lawyer-card-body">
         <div className="lawyer-card-name">{lawyer.name}</div>
         <div className="lawyer-card-spec">{lawyer.specialization}</div>

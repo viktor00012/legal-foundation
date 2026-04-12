@@ -6,6 +6,10 @@ import CTASection from '@/components/sections/CTASection';
 import { getServiceBySlug, getServices } from '@/lib/cms';
 import { getServiceIcon } from '@/lib/icons';
 
+import PortableTextContent from '@/components/PortableTextContent';
+import type { PortableTextBlock } from '@portabletext/types';
+
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -63,9 +67,16 @@ export default async function ServiceDetailPage({ params }: Props) {
               {service.description}
             </p>
 
-            <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
-              {service.content}
-            </p>
+            <div className="service-detail-content" style={{ color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
+              {Array.isArray(service.content) ? (
+                <PortableTextContent value={service.content as PortableTextBlock[]} />
+              ) : typeof service.content === 'string' ? (
+                (service.content as string).split('\n\n').map((para, i) => <p key={i} style={{ marginBottom: '1rem' }}>{para}</p>)
+              ) : null}
+            </div>
+
+
+
 
             {service.details.length > 0 && (
               <>

@@ -46,9 +46,17 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $s
   category,
   icon,
   description,
-  content,
+  content[] {
+    ...,
+    _type == "image" => {
+      ...,
+      "url": asset->url,
+      "alt": alt
+    }
+  },
   details
 }`;
+
 
 // ─── Articles ─────────────────────────────────────────────────
 export const ARTICLES_QUERY = `*[_type == "article"] | order(date desc) {

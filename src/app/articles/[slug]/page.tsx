@@ -4,7 +4,9 @@ import Link from 'next/link';
 import PageLayout from '@/components/layout/PageLayout';
 import CTASection from '@/components/sections/CTASection';
 import PortableTextContent from '@/components/PortableTextContent';
+import type { PortableTextBlock } from '@portabletext/types';
 import { getArticleBySlug, getArticles } from '@/lib/cms';
+
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -69,15 +71,17 @@ export default async function ArticleDetailPage({ params }: Props) {
 
           <div className="article-body">
             {isPortableText ? (
-              <PortableTextContent value={article.content} />
+              <PortableTextContent value={article.content as PortableTextBlock[]} />
             ) : typeof article.content === 'string' && article.content.trim() ? (
-              article.content.split('\n\n').filter(Boolean).map((para: string, i: number) => (
+
+              (article.content as string).split('\n\n').filter(Boolean).map((para: string, i: number) => (
                 <p key={i}>{para}</p>
               ))
             ) : article.excerpt ? (
               <p>{article.excerpt}</p>
             ) : null}
           </div>
+
         </div>
       </section>
 

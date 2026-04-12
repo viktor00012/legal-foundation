@@ -25,6 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+import { UserIcon } from '@/lib/icons';
+
 export default async function LawyerDetailPage({ params }: Props) {
   const { slug } = await params;
   const lawyer = await getLawyerBySlug(slug);
@@ -57,15 +59,30 @@ export default async function LawyerDetailPage({ params }: Props) {
             {/* Photo */}
             <div>
               <div className="lawyer-detail-photo">
-                <Image
-                  src={lawyer.photo}
-                  alt={lawyer.name}
-                  width={320}
-                  height={427}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
+                {lawyer.photo ? (
+                  <Image
+                    src={lawyer.photo}
+                    alt={lawyer.name}
+                    width={320}
+                    height={427}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    backgroundColor: 'var(--color-bg-alt, #f9fafb)',
+                    color: 'var(--color-text-muted)'
+                  }}>
+                    <UserIcon />
+                  </div>
+                )}
               </div>
             </div>
+
 
             {/* Info */}
             <div>

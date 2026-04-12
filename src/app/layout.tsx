@@ -5,17 +5,23 @@ import { getContact } from '@/lib/cms';
 
 export async function generateMetadata(): Promise<Metadata> {
   const contact = await getContact();
+  
+  const seoTitle = contact.seo?.title || `${contact.firmName} — Профессиональная юридическая помощь в Москве`;
+  const seoDescription = contact.seo?.description || contact.description || 'Юридическая компания с многолетним практическим опытом.';
+
   return {
     title: {
-      default: `${contact.firmName} — Профессиональная юридическая помощь в Москве`,
+      default: seoTitle,
       template: `%s | ${contact.firmName}`,
     },
-    description: contact.description || 'Юридическая компания с многолетним практическим опытом. Уголовная защита, арбитраж, гражданские дела, банкротство.',
+    description: seoDescription,
     keywords: ['юридические услуги', 'адвокат', 'юрист', contact.firmName, 'правовая помощь', 'Москва'],
     openGraph: {
       type: 'website',
       locale: 'ru_RU',
       siteName: contact.firmName,
+      title: seoTitle,
+      description: seoDescription,
     },
     icons: {
       icon: [
@@ -25,7 +31,26 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const contact = await getContact();
+  
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LegalService',
+    'name': contact.firmName,
+    'description': contact.description,
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': contact.address,
+      'addressLocality': 'Москва', // Consider making this dynamic if needed, but usually it's Moscow
+      'addressRegion': 'RU',
+    },
+    'telephone': contact.phone,
+    'email': contact.email,
+    'url': process.env.NEXT_PUBLIC_BASE_URL || 'https://urlavina.ru/',
+    'priceRange': '$$',
+  };
+
   return (
     <html lang="ru">
       <head>
@@ -41,26 +66,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'LegalService',
-              'name': 'Кремль-юрист',
-              'address': {
-                '@type': 'PostalAddress',
-                'streetAddress': 'Богородский вал, д.6 корп.1 подъезд 4 офис 1',
-                'addressLocality': 'Москва',
-                'addressRegion': 'RU',
-              },
-              'telephone': '+7 (495) 228-59-69',
-              'email': 'kremlinyuristy@yandex.ru',
-              'url': 'https://urlavina.ru/',
-              'founder': 'Вожников С.В.',
-              'foundingDate': '2017',
-              'priceRange': '$$',
-            }),
+             __html: JSON.stringify(jsonLd),
           }}
         />
       </body>
     </html>
   );
 }
+
