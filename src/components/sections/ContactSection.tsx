@@ -8,86 +8,51 @@ interface ContactSectionProps {
   };
 }
 
-export default function ContactSection({ contact, data }: ContactSectionProps) {
+export default function ContactSection({ contact }: ContactSectionProps) {
   return (
-    <section className="section">
-      <div className="container">
-        <div className="section-heading">
-          <h2>{data?.heading || 'Свяжитесь с нами'}</h2>
-          <p>{data?.subheading || 'Обратитесь к нам для записи на консультацию или получения дополнительной информации об услугах.'}</p>
+    <section className="section contact-detailed">
+      <div className="container container--narrow">
+        <div className="contact-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 className="section-title">Где мы находимся</h2>
+          <p className="section-subheading">Вы можете связаться с нами по телефону или посетить наш офис в Москве для очной консультации.</p>
         </div>
 
-        <div className="contact-grid">
-          {/* Info */}
-          <div>
-            <div className="contact-info-item">
-              <div className="contact-info-icon"><MapPinIcon /></div>
-              <div>
-                <div className="contact-info-label">Адрес</div>
-                <div className="contact-info-value">{contact.address}</div>
-              </div>
+        <div className="contact-content">
+          {/* Info Items */}
+          <div className="contact-details-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+            <div className="contact-item-v">
+              <div className="contact-info-label">АДРЕС</div>
+              <p>{contact.address}</p>
             </div>
-            <div className="contact-info-item">
-              <div className="contact-info-icon"><PhoneIcon /></div>
-              <div>
-                <div className="contact-info-label">Телефон</div>
-                <div className="contact-info-value">
-                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
-                </div>
-              </div>
+            <div className="contact-item-v">
+              <div className="contact-info-label">ТЕЛЕФОН</div>
+              <p>
+                <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+              </p>
             </div>
-            <div className="contact-info-item">
-              <div className="contact-info-icon"><MailIcon /></div>
-              <div>
-                <div className="contact-info-label">E-mail</div>
-                <div className="contact-info-value">
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </div>
-              </div>
+            <div className="contact-item-v">
+              <div className="contact-info-label">E-MAIL</div>
+              <p>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </p>
             </div>
-            <div className="contact-info-item">
-              <div className="contact-info-icon"><ClockIcon /></div>
-              <div>
-                <div className="contact-info-label">Часы работы</div>
-                <div className="contact-info-value">{contact.hours}</div>
-              </div>
+            <div className="contact-item-v">
+              <div className="contact-info-label">ЧАСЫ РАБОТЫ</div>
+              <p>{contact.hours}</p>
             </div>
-            {contact.mapEmbedUrl ? (
-              <iframe
-                src={contact.mapEmbedUrl}
-                width="100%"
-                height="300"
-                style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Карта офиса"
-              />
-            ) : (
-              <iframe
-                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(contact.address)}&z=16`}
-                width="100%"
-                height="300"
-                style={{ border: 0, borderRadius: 'var(--radius-lg)', marginTop: '2rem', display: 'block' }}
-                allowFullScreen
-                loading="lazy"
-                title="Карта офиса"
-              />
-            )}
-
           </div>
 
           {/* Messenger Buttons */}
-          <div style={{ marginTop: '2rem' }}>
-            <div className="contact-info-label" style={{ marginBottom: '1rem' }}>Написать нам</div>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <div className="contact-action-block" style={{ textAlign: 'center', padding: '3rem', background: 'var(--color-bg-muted)', borderRadius: 'var(--radius-lg)', marginBottom: '4rem' }}>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Написать нам в мессенджеры</h3>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               {contact.messengerUrl && (
                 <a 
                   href={contact.messengerUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="btn btn--primary"
-                  style={{ background: '#25d366', borderColor: '#25d366', color: '#fff' }}
+                  className="btn btn--primary btn--lg"
+                  style={{ background: '#25d366', borderColor: '#25d366' }}
                 >
                   WhatsApp
                 </a>
@@ -97,8 +62,8 @@ export default function ContactSection({ contact, data }: ContactSectionProps) {
                   href={contact.telegramUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="btn btn--primary"
-                  style={{ background: '#0088cc', borderColor: '#0088cc', color: '#fff' }}
+                  className="btn btn--primary btn--lg"
+                  style={{ background: '#0088cc', borderColor: '#0088cc' }}
                 >
                   Telegram
                 </a>
@@ -108,13 +73,38 @@ export default function ContactSection({ contact, data }: ContactSectionProps) {
                   href={contact.maxUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="btn btn--primary"
-                  style={{ background: '#1a365d', borderColor: '#1a365d', color: '#fff' }}
+                  className="btn btn--primary btn--lg"
+                  style={{ background: 'var(--color-primary)' }}
                 >
-                  MAX
+                  Чат MAX
                 </a>
               )}
             </div>
+          </div>
+
+          {/* Map - Full Width */}
+          <div className="contact-map-wrapper">
+            {contact.mapEmbedUrl ? (
+              <iframe
+                src={contact.mapEmbedUrl}
+                width="100%"
+                height="450"
+                style={{ border: 0, borderRadius: 'var(--radius-lg)', display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                title="Карта офиса"
+              />
+            ) : (
+              <iframe
+                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(contact.address)}&z=16`}
+                width="100%"
+                height="450"
+                style={{ border: 0, borderRadius: 'var(--radius-lg)', display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                title="Карта офиса"
+              />
+            )}
           </div>
         </div>
       </div>

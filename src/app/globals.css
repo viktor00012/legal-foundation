@@ -90,6 +90,36 @@ p { line-height: 1.75; }
   background: var(--color-bg-muted);
 }
 
+.container--narrow {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.contact-item-v {
+  text-align: center;
+}
+
+.contact-item-v p {
+  font-size: 1.125rem;
+  margin-top: 0.5rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.contact-info-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.section-subheading {
+
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
 .section-heading {
   text-align: center;
   margin-bottom: 3rem;
@@ -224,12 +254,15 @@ p { line-height: 1.75; }
 
 @media (max-width: 768px) {
   .header-logo img {
-    height: 30px;
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
   }
   .header-inner {
-    height: 70px;
+    height: 120px;
   }
 }
+
 
 
 .header-nav {
