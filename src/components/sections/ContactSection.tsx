@@ -2,10 +2,6 @@ import type { Contact } from '@/lib/cms';
 
 interface ContactSectionProps {
   contact: Contact;
-  data?: {
-    heading: string;
-    subheading: string;
-  };
 }
 
 export default function ContactSection({ contact }: ContactSectionProps) {
@@ -121,171 +117,18 @@ export default function ContactSection({ contact }: ContactSectionProps) {
   );
 }
 
-/* ─── Contact Detailed V2 ─────────────────────────────────── */
-.contact-detailed {
-  background-color: var(--color-bg);
-}
-
-.contact-info-grid-v2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.contact-card-v2 {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 2rem;
-  background: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contact-card-v2:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-.contact-icon-box {
-  flex-shrink: 0;
-  width: 54px;
-  height: 54px;
-  background: var(--color-bg-muted);
-  color: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.contact-card-content p {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.contact-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.social-connect-card {
-  background: var(--color-primary);
-  color: #fff;
-  border-radius: var(--radius-lg);
-  padding: 3.5rem;
-  margin-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.social-connect-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-}
-
-.social-connect-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  position: relative;
-  z-index: 2;
-}
-
-.social-connect-text h3 {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.social-connect-text p {
-  color: rgba(255,255,255,0.8);
-  font-size: 1.125rem;
-}
-
-.social-connect-btns {
-  display: flex;
-  gap: 1rem;
-}
-
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
-  border-radius: var(--radius);
-  font-weight: 600;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.social-btn.whatsapp {
-  background: #25d366;
-  color: #fff;
-}
-
-.social-btn.telegram {
-  background: #0088cc;
-  color: #fff;
-}
-
-.social-btn.max-chat {
-  background: #fff;
-  color: var(--color-primary);
-}
-
-.social-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.map-section-v2 {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 4px solid #fff;
-}
-
-/* Response: mobile fixes */
-@media (max-width: 900px) {
-  .social-connect-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-
-
-
 function MapPinIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
   );
 }
 
-function PhoneIcon() {
+function PhoneIconDetail() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.09a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
     </svg>
   );
@@ -293,7 +136,7 @@ function PhoneIcon() {
 
 function MailIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
       <polyline points="22,6 12,13 2,6" />
     </svg>
@@ -302,9 +145,25 @@ function MailIcon() {
 
 function ClockIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.062c-3.414 0-6.141 2.734-6.141 6.141 0 1.094.281 2.156.828 3.094l-.875 3.203 3.266-.859c.906.484 1.922.75 2.922.75 3.414 0 6.141-2.734 6.141-6.141 0-3.407-2.727-6.141-6.141-6.141zm3.609 8.656c-.156.438-.906.844-1.25.891-.344.047-.781.078-1.219-.062-.266-.078-.594-.187-1-.359-1.734-.734-2.859-2.5-2.938-2.609-.078-.109-.641-.859-.641-1.641 0-.781.406-1.172.547-1.328.141-.156.313-.187.406-.187h.313c.094 0 .219.016.313.234.109.266.375.922.406 1.016.031.094.047.203-.016.313-.063.125-.125.203-.234.328-.109.125-.219.234-.313.344-.109.125-.234.25-.094.484.141.234.625 1.031 1.344 1.672.922.812 1.703 1.062 1.938 1.187.234.125.375.109.516-.047.141-.156.594-.687.75-.922.156-.234.313-.187.516-.109.203.078 1.281.609 1.5.719.219.109.359.172.406.25.047.078.047.453-.109.891z"/>
+    </svg>
+  );
+}
+
+function TelegramIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.35-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.73 7.57-3.24 3.61-1.45 4.36-1.7 4.85-1.7.11 0 .35.03.5.15.13.12.18.28.19.45.02.07.02.18 0 .24z"/>
     </svg>
   );
 }

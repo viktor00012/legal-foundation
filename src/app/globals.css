@@ -1308,3 +1308,153 @@ p {
     justify-content: center;
   }
 }
+
+/* ─── Contact Detailed V2 ─────────────────────────────────── */
+.contact-detailed {
+  background-color: var(--color-bg);
+}
+
+.contact-info-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.contact-card-v2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card-v2:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-icon-box {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  background: var(--color-bg-muted);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.contact-card-content p {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.social-connect-card {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 3.5rem;
+  margin-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-connect-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.social-connect-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.social-connect-text h3 {
+  color: #fff !important;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.social-connect-text p {
+  color: rgba(255,255,255,0.8) !important;
+  font-size: 1.125rem;
+}
+
+.social-connect-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.social-btn.whatsapp {
+  background: #25d366;
+  color: #fff !important;
+}
+
+.social-btn.telegram {
+  background: #0088cc;
+  color: #fff !important;
+}
+
+.social-btn.max-chat {
+  background: #fff;
+  color: var(--color-primary) !important;
+}
+
+.social-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.map-section-v2 {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 4px solid #fff;
+}
+
+/* Response: mobile fixes */
+@media (max-width: 900px) {
+  .social-connect-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}

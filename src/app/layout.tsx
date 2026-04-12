@@ -29,9 +29,10 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     icons: {
       icon: [
-        { url: '/logo.png', type: 'image/x-icon' },
+        { url: '/logo.png', type: 'image/png' },
       ],
     },
+
   };
 }
 
