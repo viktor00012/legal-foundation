@@ -1154,7 +1154,7 @@ p {
 }
 
 .float-btn--msg {
-  background: #25d366;
+  background: var(--color-primary);
 }
 
 /* ─── Mobile Sticky Bar ──────────────────────────────────── */
@@ -1424,10 +1424,7 @@ p {
   font-size: 1rem;
 }
 
-.social-btn.whatsapp {
-  background: #25d366;
-  color: #fff !important;
-}
+
 
 .social-btn.telegram {
   background: #0088cc;

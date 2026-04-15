@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import type { Contact } from '@/lib/cms';
-import QRModal from '@/components/QRModal';
 
 interface ContactSectionProps {
   contact: Contact;
@@ -66,14 +65,19 @@ export default function ContactSection({ contact }: ContactSectionProps) {
                 <p>Мы ответим в течение 15 минут в рабочее время</p>
               </div>
               <div className="social-connect-btns">
-                {/* WhatsApp removed by client request */}
+
                 {contact.telegramUrl && (
                   <a href={contact.telegramUrl} target="_blank" rel="noopener noreferrer" className="social-btn telegram">
                     <TelegramIcon />
                     Telegram
                   </a>
                 )}
-                <QRModal qrSrc="/max.PNG" triggerLabel="Чат MAX" />
+                {contact.maxUrl && (
+                  <a href={contact.maxUrl} target="_blank" rel="noopener noreferrer" className="social-btn max-chat">
+                    <Image src="/max.svg" alt="" width={20} height={20} style={{ objectFit: 'contain' }} />
+                    Чат MAX
+                  </a>
+                )}
               </div>
             </div>
           </div>
